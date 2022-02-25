@@ -1,0 +1,109 @@
+﻿<Page x:Class="WpfApp1.ProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ProductPage" Loaded="Page_Loaded" IsVisibleChanged="Page_IsVisibleChanged">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <ListView Name="myGrid" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="2" BorderBrush="DarkGray">
+                        <Grid Margin="5" Width="580" Name="Grid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding Изображение}" Grid.Row="0" Height="auto"/>
+                            <TextBlock Text="{Binding Наименование_товара}" TextWrapping="Wrap" Grid.Row="1" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding Path=Manufacturer.Название_производителя}"  Grid.Row="2" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding Цена, StringFormat= 0 руб}" Grid.Row="3" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding Активен}"  Grid.Row="4" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Активен}" Value="Не активен">
+                            <Setter TargetName="Grid" Property="Background" Value="LightGray"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <TextBlock VerticalAlignment="Bottom" Visibility="Hidden" x:Name="ii" Text="{Binding ID}"></TextBlock>
+
+        <GroupBox Header="Поиск" Padding="5" Grid.Row="1" HorizontalAlignment="Left" Margin="200 0 0 0">
+            <StackPanel>
+                <TextBlock Text="Поиск по названию"></TextBlock>
+                <TextBox x:Name="TextName" Margin="5" TextChanged="TextName_TextChanged"></TextBox>
+                <TextBox x:Name="col" Margin="5" IsReadOnly="True"></TextBox>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Фильтр по активности" Padding="5" Grid.Row="1" Width="170" HorizontalAlignment="Left" Margin="10 0 0 0">
+            <StackPanel>
+                <RadioButton IsChecked="True" Margin="3" GroupName="dd" Name="x1" Click="x1_Click">Все</RadioButton>
+                <RadioButton Margin="3" GroupName="dd" Name="x2" Click="x1_Click">Активен</RadioButton>
+                <RadioButton Margin="3" GroupName="dd" Name="x3" Click="x1_Click">Не активен</RadioButton>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Сортировка по производителю" Padding="5" Grid.Row="1" HorizontalAlignment="Left" Margin="570 0 0 0">
+            <StackPanel>
+                <ComboBox Name="cd" SelectionChanged="cd_SelectionChanged" DisplayMemberPath="Название_производителя"  ></ComboBox>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Сортировка по цене" Grid.Row="2" Width="200" Margin="10 0 0 0" HorizontalAlignment="Left">
+            <StackPanel>
+                <ComboBox Name="Price" SelectionChanged="Price_SelectionChanged">
+                    <ComboBoxItem IsSelected="True">Нет фильтра</ComboBoxItem>
+                    <ComboBoxItem>Цена по возрастанию</ComboBoxItem>
+                    <ComboBoxItem>Цена по убыванию</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </GroupBox>
+
+        <WrapPanel Grid.Row="2" Margin="570 40 0 0">
+            <Button x:Name="LastPageButton" IsEnabled="False" Content="&lt;---" HorizontalAlignment="Left"
+                    Margin="10" VerticalAlignment="Center" Width="75" Height="50" Click="LastPageButton_Click"/>
+            <RadioButton x:Name="rb1" Content="10" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Bottom"
+                         Checked="rb1_Checked"/>
+            <RadioButton Content="20" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Bottom"
+                         Checked="rb1_Checked"/>
+            <RadioButton Content="50" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Bottom"
+                         Checked="rb1_Checked"/>
+            <Button x:Name="NextPageButton" Content="---&gt;" HorizontalAlignment="Right" Margin="0 10 10 10"
+                    VerticalAlignment="Center" Width="75" Height="50" Click="NextPageButton_Click"/>
+        </WrapPanel>
+
+        <Button Name="BtnAdd" Click="BtnAdd_Click" Width="150" Height="30" Content="Добавить продукт"
+                VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="3" Margin="10 0 0 10"></Button>
+        <Button Content="Редатировать" Name="Edit" Click="Edit_Click" Height="30" Grid.Row="3" Width="150"
+                HorizontalAlignment="Left" Margin="170 0 0 0"></Button>
+        <Button Content="Продажи товара" Name="Sales" Click="Sales_Click" Height="30" Grid.Row="3" Width="150"
+                HorizontalAlignment="Center"></Button>
+        <Button Content="Удалить" Name="BtnDelete" Click="BtnDelete_Click" Height="30" Grid.Row="3" Width="150"
+                HorizontalAlignment="Right" Margin="0 0 10 0"></Button>
+    </Grid>
+</Page>

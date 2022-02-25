@@ -1,0 +1,52 @@
+﻿<Page x:Class="WpfApp1.AddProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddProductPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Наименование товара:" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Text="Изображение:" HorizontalAlignment="Center" Grid.Row="1"></TextBlock>
+        <TextBlock Text="Производитель:" HorizontalAlignment="Center" Grid.Row="2"></TextBlock>
+        <TextBlock Text="Активность:" HorizontalAlignment="Center" Grid.Row="3"></TextBlock>
+        <TextBlock Text="Цена:" HorizontalAlignment="Center" Grid.Row="4"></TextBlock>
+
+        <TextBox Width="450" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"
+                 Margin="10 0 0 0" Name="Name" Text="{Binding Наименование_товара}"></TextBox> 
+        <Button Grid.Column="1" Grid.Row="1" Width="150" Height="30" Content="Добавить фото" HorizontalAlignment="Left"
+                Margin="10 0 0 0" Name="BtnPhoto" Click="BtnPhoto_Click"></Button>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="TBImage" TextChanged="TBImage_TextChanged" HorizontalAlignment="Left" Margin="200 0 0 0" 
+                 Width="150" Text="{Binding Path=Изображение}"></TextBox>
+        <Image Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" MinHeight="100" MinWidth="100" Name="FOT"></Image>
+        <ComboBox Grid.Row="2" Grid.Column="1" Margin="10 0 0 0" Width="450" HorizontalAlignment="Left"
+                  Name="CBManufacturer" DisplayMemberPath="Название_производителя" SelectedItem="{Binding Path=Manufacturer}"  ></ComboBox>
+        <WrapPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <RadioButton x:Name="abut" IsChecked="True" Margin="10">Активен</RadioButton>
+            <RadioButton x:Name="nbut" Margin="10">Не активен</RadioButton>
+        </WrapPanel>
+        <TextBox Width="450" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left"
+                 Margin="10 0 0 0" Name="Mon" Text="{Binding Цена}"></TextBox>
+ 
+        <Button Width="100" Height="30" Content="Назад" Name="BtnBack" Click="BtnBack_Click"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5"></Button>
+        <Button Width="100" Height="30" Content="Сохранить" Name="BtnSave" Click="BtnSave_Click"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" Grid.Column="1"></Button>
+    </Grid>
+</Page>
